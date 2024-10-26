@@ -29,18 +29,18 @@ Git
 
 Project Structure
 
-user-management-system/
-│
-├── src/main/java/com/example/usermanagement
-│   ├── controller
-│   ├── model
-│   ├── repository
-│   ├── service
-├── src/main/resources
-│   ├── application.properties
-│   ├── static/
-│   └── templates/
-├── src/test/java/com/example/userManagement
+user-management-system/ <br>
+│                       <br>
+├── src/main/java/com/example/usermanagement <br>
+│   ├── controller                            <br>
+│   ├── model                                   <br>
+│   ├── repository <br>
+│   ├── service<br>
+├── src/main/resources<br>
+│   ├── application.properties<br>
+│   ├── static/<br>
+│   └── templates/<br>
+├── src/test/java/com/example/userManagement<br>
 └── README.md
 
 
