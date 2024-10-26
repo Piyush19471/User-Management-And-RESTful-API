@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="css/style2.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-header">
+				<div th:if="${name}" >	
+				 <h1 class="username" th:text="${name}" ></h1>
+				</div>				
+                <button th:href="@{/logout}" id="logout-btn">Logout</button>
+            </div>
+            <div class="bio">
+                <h3>About Me</h3>
+                <textarea id="bio-text" placeholder="Tell us about yourself..."></textarea>
+                <button id="save-bio">Save Bio</button>
+            </div>
+            <div class="stats">
+                <h3>User Stats</h3>
+                <div class="stat-item">
+                    <span>Posts:</span>
+                    <span id="post-count">120</span>
+                </div>
+                <div class="stat-item">
+                    <span>Followers:</span>
+                    <span id="follower-count">300</span>
+                </div>
+                <div class="stat-item">
+                    <span>Following:</span>
+                    <span id="following-count">180</span>
+                </div>
+            </div>
+            <div class="social-media">
+                <h3>Social Media</h3>
+                <a href="#" class="social-link">Facebook</a>
+                <a href="#" class="social-link">Twitter</a>
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">LinkedIn</a>
+            </div>
+            <div class="additional-content">
+                <h3>Recent Activities</h3>
+                <ul>
+                    <li>Posted a new article on Web Development.</li>
+                    <li>Joined the JavaScript Mastery Group.</li>
+                    <li>Commented on a post about CSS Grid.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script2.js"></script>
+</body>
+
+</html>
