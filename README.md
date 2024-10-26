@@ -44,7 +44,10 @@ user-management-system/ <br>
 └── README.md
 
 
-Controller: Contains REST controllers that manage HTTP requests.
-Model: User entities.
-Repository: Contains interfaces for database operations.
+Controller: Contains REST controllers that manage HTTP requests.<br>
+
+Model: User entities.<br>
+
+Repository: Contains interfaces for database operations.<br>
+
 Service: Business logic for user authentication, profile updates, etc.
