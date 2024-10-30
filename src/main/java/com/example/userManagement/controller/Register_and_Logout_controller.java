@@ -22,13 +22,17 @@ public class Register_and_Logout_controller {
         model.addAttribute("user", new User());  // Add a new User object to the model
         return "register";  // Return the registration page
     }
-
+    
+    @GetMapping("/regForm")
+    public String regErrorHandling() {
+        return "redirect:regPage";
+    }
     @PostMapping("/regForm")
     public String submitRegForm(@ModelAttribute("user") User users, org.springframework.ui.Model model) {
         // Check if the passwords match first
         if (!users.getPassword().equals(users.getCnfPassword())) {
-            model.addAttribute("errorMsg", "Password doesn't match with Confirm Password 😜");
-            return "register";  // Return to registration page without saving
+            model.addAttribute("errorMsg", "Password doesn't match with Confirm Password ");
+            return "regError";  // Return to registration page without saving
         }
 
         // Try to register the user
@@ -39,7 +43,7 @@ public class Register_and_Logout_controller {
         } catch (Exception e) {
             // Handle any exceptions during registration
             model.addAttribute("errorMsg", "An error occurred during registration.");
-            return "register";  // Return to registration page
+            return "regError";  // Return to registration page
         }
 
         // If registration is successful
@@ -47,8 +51,8 @@ public class Register_and_Logout_controller {
             return "sucess";  // Redirect to success page
         } else {
             // If registration fails, display an appropriate error
-            model.addAttribute("errorMsg", "User not registered. Email might already exist try with another email 😇");
-            return "error";  // Return to registration page
+            model.addAttribute("errorMsg", "User not registered. Email might already exist try with another email ");
+            return "regError";  // Return to registration page
         }
     }
 

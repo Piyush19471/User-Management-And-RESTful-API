@@ -19,7 +19,12 @@ public class loginControler {
 		 model.addAttribute("user", new User());
 		 return "index";
 	 }
-	 @SuppressWarnings("null")
+	 
+		@GetMapping("/logForm")
+		public String logErrorHandling() {
+
+			return "redirect:logPage";
+		}
 	@PostMapping("/logForm")
 	 public String SubmitlogForm(@ModelAttribute ("user") User user , Model model) {
 		 
@@ -32,7 +37,7 @@ public class loginControler {
 		 
 		 else {
 			 
-			 model.addAttribute("errorMsg", "Email id or Password incorrect 😒🤦‍♂️");
+			 model.addAttribute("errorMsg", "Email id or Password incorrect");
 			 return "index";
 		 }
 		  
