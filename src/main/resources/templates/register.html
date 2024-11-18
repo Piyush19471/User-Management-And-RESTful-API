@@ -15,6 +15,7 @@
 
     <!-- Favicon -->
     <link rel="icon" href="img/html-5.png">
+    
 </head>
 
 <body>
@@ -24,26 +25,27 @@
             <img src="img/login-mobile.svg">
         </div>
         <div class="login-container">
-            <form th:action="@{/regForm}" th:object="${user}" method="post">
+            <form th:action="@{/registration}" th:object="${user}" method="post">
 				<div th:if="${errorMsg}">
 				<h4 style="color: red;" th:text="${errorMsg}"></h4>	
 			   </div>	
-                <h2>Sign up</h2>
-                <p>Log in with</p>
+                <!-- <h2>Sign up</h2> -->
+                <p>Sign in with</p>
                 <div class="social">
                     <div class="social-icons facebook">
                         <a href="#"><img src="img/facebook.png">Log in with Facebook</a>
                     </div>
                     <div class="social-icons google">
-                        <a href="#"><img src="img/google.png">Log in with Google</a>
+                        <a href="/oauth2/authorization/google"><img src="img/google.png">Log in with Google</a>
                     </div>
+                    <p>Or Enter Details</p>
                 </div>
                 <div class="input-div one">
                     <div class="i">
                         <i class="fas fa-user"></i>
                     </div>
                     <div>
-                        <h5>User</h5>
+                        <h5>Name</h5>
                         <input class="input" type="text" th:field="*{name}" required>
                     </div>
                 </div>
@@ -62,7 +64,9 @@
                     </div>
                     <div>
                         <h5>Password</h5>
-                        <input class="input" type="password" th:field="*{password}" required>
+                        <input class="input" type="password" th:field="*{password}" required aria-label="Password">
+
+                        <!-- <input class="input" type="password" th:field="*{password}" required> -->
                     </div>
                 </div>
                 <div class="input-div two">
@@ -71,14 +75,16 @@
                     </div>
                     <div>
                         <h5>Confirm Password</h5>
-                        <input class="input" type="password" th:field="*{cnfPassword}" required>
+                        <!-- <input class="input" type="password" th:field="*{cnfPassword}" required> -->
+                        <input id="confirmPassword" class="input" type="password" th:field="*{cnfPassword}" required>
                     </div>
                 </div>
                 <div class="terms">
                     <input type="checkbox" required>
-                    <label>I have read and agree with the  </label><a id="action-modal">terms of use.</a>
+                    <label>I have read and agree with the  </label><a id="action-modal">Terms of use.</a>
                 </div>
                 <div class="btn-container">
+                    <div class="g-recaptcha" data-sitekey="your-site-key-here"></div>
                     <!-- <a href="sucess.html" class="btn-action">Register</a> -->
                     <button type="submit" class="btn-action" >Register</button>
                 </div>
@@ -139,6 +145,48 @@
             </form>
         </div>
     </div>
+    <!-- Custom Alert Modal -->
+    <div id="custom-alert" class="custom-alert">
+        <div class="custom-alert-box">
+            <h3>Validation Error</h3>
+            <p id="custom-alert-message"></p>
+            <button id="close-alert">OK</button>
+        </div>
+    </div>
+    <script>
+   const form = document.querySelector("form");
+    const passwordField = document.querySelector("#password");
+    const confirmPasswordField = document.querySelector("#confirmPassword");
+    const alertModal = document.querySelector("#custom-alert");
+    const alertMessage = document.querySelector("#custom-alert-message");
+    const closeAlert = document.querySelector("#close-alert");
+
+    form.addEventListener("submit", function (e) {
+        const password = passwordField.value;
+        const confirmPassword = confirmPasswordField.value;
+
+        const showError = (message) => {
+            alertMessage.textContent = message;
+            alertModal.classList.add("active");
+        };
+
+        if (password.length < 6) {
+            showError("Password must be at least 6 characters long.");
+            e.preventDefault();
+            return false;
+        }
+        if (!/[A-Z]/.test(password)) {
+            showError("Password must contain at least one uppercase letter.");
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    closeAlert.addEventListener("click", () => {
+        alertModal.classList.remove("active");
+    });
+
+    </script>
 
     <script type="text/javascript" src="js/main.js"></script>
 </body>

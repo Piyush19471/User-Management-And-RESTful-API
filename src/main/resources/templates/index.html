@@ -25,15 +25,20 @@
             <img src="img/authentication.svg">
         </div>
         <div class="login-container">
-            <form th:action="@{/logForm}" th:object="${user}" method="post">
+            <form th:action="@{/login}" th:object="${user}" method="post">
 				
-				<div th:if="${errorMsg}" >
+				<!-- <div th:if="${errorMsg}" >
 				<h3 style="color: red;" th:text="${errorMsg}"></h3>	
-				
-				
-				</div>
-                <h2 style="color: rgb(147, 84, 143);">Ume </h2>
+				</div> -->
+                <h3 style="color: rgb(12, 11, 12);">Hello! User</h3>
                 <p>Welcome</p>
+                <div th:if="${param.logout}">
+                    <p style="color: green;">You have been successfully logged out.</p>
+                </div>
+                <div th:if="${errorMsg}">
+                    <p style="color: red;" th:text="${errorMsg}"></p>
+                </div>
+
                 <div class="input-div one">
                     <div class="i">
                         <i class="fas fa-user"></i>
@@ -52,7 +57,7 @@
                         <input class="input" type="password" th:field="*{password}" required>
                     </div>
                 </div>
-				<button type="submit" class="btn">Enter</button>
+				<button type="submit" class="btn">Login</button>
 				<!-- <input type="submit" class="btn" value="Enter"> -->
                 <a class="forgot" href="forgotPage">Forgot Password ?</a>
                 <div class="others">
@@ -65,12 +70,12 @@
                         <a href="#"><img src="img/facebook.png">Login with Facebook</a>
                     </div>
                     <div class="social-icons google">
-                        <a href="#"><img src="img/google.png">Login with Google</a>
+                        <a href="/oauth2/authorization/google"><img src="img/google.png">Login with Google</a>
                     </div>
                 </div>
                 <div class="account">
                     <p>Don't have an account yet?</p>
-                    <a href="regPage">
+                    <a href="registration">
                     Sign up</a>
                 </div>
             </form>

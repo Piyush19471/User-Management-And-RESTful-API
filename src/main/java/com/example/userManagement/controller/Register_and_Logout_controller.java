@@ -7,27 +7,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.userManagement.model.User;
 import com.example.userManagement.service.UserService;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-
 @Controller
 public class Register_and_Logout_controller {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/regPage")
+    @GetMapping("/registration")
     public String openRegpage(org.springframework.ui.Model model) {
         model.addAttribute("user", new User());  // Add a new User object to the model
         return "register";  // Return the registration page
     }
     
-    @GetMapping("/regForm")
-    public String regErrorHandling() {
-        return "redirect:regPage";
-    }
-    @PostMapping("/regForm")
+    @PostMapping("/registration")
     public String submitRegForm(@ModelAttribute("user") User users, org.springframework.ui.Model model) {
         // Check if the passwords match first
         if (!users.getPassword().equals(users.getCnfPassword())) {
@@ -55,18 +47,6 @@ public class Register_and_Logout_controller {
             return "regError";  // Return to registration page
         }
     }
-
-
- @GetMapping("/logout")
- public String logout(HttpServletRequest request) {
-   HttpSession session= request.getSession(false);
-   if(session!=null) {
-	   session.invalidate();
-   }
- 	return "redirect:/";
- 	
- 	
- }
 
  @GetMapping("/forgotPage")
  public String forgotPass() {

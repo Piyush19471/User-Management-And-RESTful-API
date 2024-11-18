@@ -7,7 +7,7 @@ import com.example.userManagement.model.User;
 
 public interface UserRepo extends JpaRepository<User, Integer>
 {
-User findByEmail(String email);
+<Optional>User findByEmail(String email);
 boolean existsByEmail(String email);
 
 }

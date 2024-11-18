@@ -13,20 +13,26 @@ body {
     align-items: center;
     height: 100vh;
     transition: background-color 0.3s;
+    overflow: hidden;
+    /* Prevents unnecessary scroll on smaller screens */
 }
 
 .container {
     perspective: 1000px;
+    width: 90%;
+    max-width: 600px;
+    padding: 10px;
 }
 
 .profile-card {
     background: white;
-    width: 500px;
     border-radius: 10px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     transform-style: preserve-3d;
     transition: transform 0.5s;
     padding: 20px;
+    width: 100%;
+    max-width: 500px;
 }
 
 .profile-card:hover {
@@ -37,6 +43,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    /* Ensures proper alignment on smaller screens */
 }
 
 button {
@@ -47,12 +55,14 @@ button {
     color: white;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
     background-color: #e65c00;
     /* Darker shade on hover */
+    transform: scale(1.05);
+    /* Slight zoom effect */
 }
 
 .bio {
@@ -66,6 +76,7 @@ button:hover {
     border: 1px solid #ccc;
     padding: 10px;
     resize: none;
+    font-size: 1em;
 }
 
 .stats {
@@ -76,25 +87,31 @@ button:hover {
     display: flex;
     justify-content: space-between;
     padding: 5px 0;
+    font-size: 1em;
 }
 
 .social-media {
     margin: 20px 0;
+    text-align: center;
+    /* Center-align social links */
 }
 
 .social-link {
     display: inline-block;
-    margin-right: 10px;
+    margin: 5px 10px;
+    /* Adjust for better spacing */
     padding: 5px 10px;
     border-radius: 5px;
     background-color: #ff6f20;
     color: white;
     text-decoration: none;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .social-link:hover {
     background-color: #e65c00;
+    transform: scale(1.1);
+    /* Slight zoom effect */
 }
 
 .additional-content {
@@ -114,6 +131,7 @@ button:hover {
     margin: 5px 0;
     padding: 10px;
     border-radius: 5px;
+    font-size: 0.9em;
 }
 
 .dark-mode {
@@ -123,4 +141,62 @@ button:hover {
 
 .dark-mode button {
     background-color: #444;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .profile-card {
+        padding: 15px;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        /* Stack elements on smaller screens */
+        gap: 10px;
+        /* Add spacing between elements */
+    }
+
+    #bio-text {
+        height: 80px;
+        font-size: 0.9em;
+    }
+
+    .stat-item {
+        font-size: 0.9em;
+    }
+
+    button {
+        width: 100%;
+        /* Full-width buttons on smaller screens */
+    }
+
+    .social-link {
+        margin: 5px auto;
+        /* Center-align links */
+        padding: 10px 15px;
+        /* Increase touch target size */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        height: auto;
+        padding: 20px;
+    }
+
+    .profile-card {
+        transform: none;
+        /* Disable 3D effect on very small screens */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        /* Lighter shadow */
+    }
+
+    .social-link {
+        font-size: 0.9em;
+    }
+
+    .additional-content li {
+        font-size: 0.8em;
+        padding: 8px;
+    }
 }
