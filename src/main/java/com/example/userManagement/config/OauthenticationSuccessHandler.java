@@ -1,6 +1,7 @@
 package com.example.userManagement.config;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import com.example.userManagement.repositry.UserRepo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 @Component
 public class OauthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
@@ -33,10 +35,34 @@ public class OauthenticationSuccessHandler implements AuthenticationSuccessHandl
         // Ensure that authentication principal is of type DefaultOAuth2User
         DefaultOAuth2User user = (DefaultOAuth2User) authentication.getPrincipal();
 
-        // Extract user attributes
-        String email = (String) user.getAttribute("email");
-        String name = (String) user.getAttribute("name");
-        String picture = (String) user.getAttribute("picture");
+          // Extract user attributes
+        Map<String, Object> attributes = user.getAttributes();
+        logger.info("User attributes from OAuth provider: " + attributes);
+        // Extract email
+        String email = (String) attributes.get("email");
+
+        // Extract name (handle as String directly)
+        String name = (String) attributes.get("name");
+        logger.info("Extracted name: " + name);
+
+        // Extract picture
+        String picture = null;
+        Object pictureObj = attributes.get("picture");
+        if (pictureObj instanceof String) {
+            // Google OAuth: Picture is a direct URL string
+            picture = (String) pictureObj;
+        } else if (pictureObj instanceof Map) {
+            // Facebook OAuth: Picture is a nested structure
+            @SuppressWarnings("unchecked")
+            Map<String, Object> pictureMap = (Map<String, Object>) pictureObj;
+            Object dataObj = pictureMap.get("data");
+            if (dataObj instanceof Map) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> dataMap = (Map<String, Object>) dataObj;
+                picture = (String) dataMap.get("url");
+            }
+        }
+        logger.info("Extracted picture URL: " + picture);
 
         // Check for null values and handle them
         if (email == null || name == null || picture == null) {

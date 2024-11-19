@@ -37,7 +37,7 @@ public class WebSecurity {
                         .deleteCookies("JSESSIONID") // Deletes the session cookie
                 );
 
-                //oauth configuration
+                //oauth configuration for google
               
                 http.oauth2Login(oauth->{
                         oauth.loginPage("/");
